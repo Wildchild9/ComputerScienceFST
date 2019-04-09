@@ -1,4 +1,6 @@
-package FST;//
+package FST;
+
+//
 //
 // Card.java
 // ComputerScience
@@ -7,23 +9,41 @@ package FST;//
 // Last modified on 08/04/19 11:24 AM.
 
 import org.jetbrains.annotations.NotNull;
-
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.IllegalFormatException;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
-
+/**
+ A card with a rank and a suit.
+ */
 public class Card implements Serializable, Comparable<Card> {
 
+    /**
+    The rank of the card.
+     */
     public Rank rank;
+
+    /**
+     The suit of the card.
+     */
     public Suit suit;
 
+    /**
+     Constructs a card with the specified rank and suit.
+
+     @param rank the rank of the card.
+     @param suit the suit of the card.
+
+     */
     public Card(Rank rank, Suit suit) {
         this.rank = rank;
         this.suit = suit;
+        new ArrayList<Integer>(43);
     }
 
+    /**
+     Gets information to instantiate a new {@code Card} object from the given {@code Scanner} object.
+     */
     public static Card getCardInput(Scanner from) {
 
         var sc = from;
@@ -49,13 +69,27 @@ public class Card implements Serializable, Comparable<Card> {
         return card;
     }
 
+    /**
+     A full deck containing all 52 distinct cards sorted by suit then rank.
+     */
     public static final Card[] deck = Arrays.stream(Suit.values()).flatMap(s -> Arrays.stream(Rank.values()).map(r -> new Card(r, s))).toArray(Card[]::new);
 
+    /**
+     The rank of a card.
+     */
     public enum Rank implements Comparable<Rank> {
         two, three, four, five, six, seven, eight, nine, ten, jack, queen, king, ace;
 
-        public static final String validRankRegex = "(?i)^([2-9]|two|three|four|five|six|seven|eight|nine|10|ten|11|j|jack|12|queen|q|13|king|k|14|1|ace|a)$";
+        /**
+         A regex string that if matched, ensures that a string is a valid rank.
+         */
+        public static final String validRankRegex = '(' + Arrays.stream(Rank.values()).map(Rank::validRegex).collect(Collectors.joining("|")) + ')';
 
+        /**
+         A regex string that if matched, is a valid {@code String} of the rank.
+
+         @return A regex string that validates a string of the rank.
+         */
         public String validRegex() {
             switch (this) {
                 case two: return "(?i)^(2|two)$";
@@ -75,6 +109,15 @@ public class Card implements Serializable, Comparable<Card> {
             }
         }
 
+        /**
+         The rank of the given string.
+
+         @param str the string of the {@code Rank}.
+
+         @return the rank of the given string.
+
+         @throws IllegalFormatException if {@code str} is an not match any of the ranks. Throws when {@code str} does not match {@code Rank.validRankRegex}.
+         */
         public static Rank from(String str) throws IllegalFormatException {
             for (var rank: Rank.values()) {
                 if (str.toLowerCase().matches(rank.validRegex())) {
@@ -84,6 +127,11 @@ public class Card implements Serializable, Comparable<Card> {
             throw new IllegalArgumentException("Invalid string for Rank initialization");
         }
 
+        /**
+         A textual representation of the rank.
+
+         @return a string describing the rank.
+         */
         @Override
         public String toString() {
             switch (this) {
@@ -105,20 +153,41 @@ public class Card implements Serializable, Comparable<Card> {
         }
     }
 
+    /**
+     The suit of a card.
+     */
     public enum Suit implements Comparable<Suit> {
         hearts, diamonds, spades, clubs;
-        public static final String validSuitRegex = "^(♥︎|h|hearts|♦︎|d|diamonds|♠︎︎|s|spades|♣︎︎|c|clubs)$";
 
+        /**
+         A regex string that if matched, ensures that a string is a valid suit.
+         */
+        public static final String validSuitRegex = '(' + Arrays.stream(Suit.values()).map(Suit::validRegex).collect(Collectors.joining("|")) + ')';
+
+        /**
+         A regex string that if matched, is a valid {@code String} of the suit.
+
+         @return A regex string that validates a string of the suit.
+         */
         public String validRegex() {
             switch (this) {
-                case hearts: return "^(♥︎|h|hearts)$";
-                case diamonds: return "^(♦︎|d|diamonds)$";
-                case spades: return "^(♠︎︎|s|spades)$";
-                case clubs: return "^(♣︎︎|c|clubs)$";
+                case hearts: return "(?i)^(♥︎|h|hearts)$";
+                case diamonds: return "(?i)^(♦︎|d|diamonds)$";
+                case spades: return "(?i)^(♠︎︎|s|spades)$";
+                case clubs: return "(?i)^(♣︎︎|c|clubs)$";
                 default: throw new IllegalArgumentException("Impossible");
             }
         }
 
+        /**
+         The suit of the given string.
+
+         @param str the string of the {@code Suit}.
+
+         @return the suit of the given string.
+
+         @throws IllegalFormatException if {@code str} is an not match any of the suits. Throws when {@code str} does not match {@code Suit.validSuitRegex}.
+         */
         public static Suit from(String str) throws IllegalFormatException {
             for (var suit: Suit.values()) {
                 if (str.toLowerCase().matches(suit.validRegex())) {
@@ -129,6 +198,11 @@ public class Card implements Serializable, Comparable<Card> {
             throw new IllegalArgumentException("Invalid string for Suit initialization");
         }
 
+        /**
+         A textual representation of the suit.
+
+         @return a string describing the suit.
+         */
         @Override
         public String toString() {
             switch (this) {
@@ -141,6 +215,30 @@ public class Card implements Serializable, Comparable<Card> {
         }
     }
 
+    /**
+     The deck of cards with its cards shuffled.
+
+     @param deck the array of cards to shuffle.
+
+     @return an array containing the cards of the deck in a shuffled order.
+     */
+    public static Card[] shuffling(Card[] deck) {
+        if (deck.length <= 1) return deck;
+        var list = Arrays.asList(deck);
+        Collections.shuffle(list);
+        return list.toArray(Card[]::new);
+    }
+
+
+    /**
+     Compares two cards by suit then by rank.
+
+     @param o the {@code Card} object to be compared.
+
+     @return a negative integer, zero, or a positive integer as this {@code Card} object is less than, equal to, or greater than the specified {@code Card} object.
+
+     @throws NullPointerException if the specified {@code Card} object is null.
+     */
     @Override
     public int compareTo(@NotNull Card o) {
         if (suit.equals(o.suit)) {
@@ -150,6 +248,11 @@ public class Card implements Serializable, Comparable<Card> {
         }
     }
 
+    /**
+     A textual representation of the card.
+
+     @return a string describing the card.
+     */
     @Override
     public String toString() {
         return "" + rank + suit;
