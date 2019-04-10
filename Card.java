@@ -10,6 +10,7 @@ package FST;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 /**
@@ -66,6 +67,18 @@ public class Card implements Serializable, Comparable<Card> {
         var card = new Card(rank, suit);
 
         return card;
+    }
+
+    /**
+     A card composed of a random suit and rank.
+
+     @return a new pseudorandomly generated {@code Card} object.
+     */
+    public static Card random() {
+        var randomRank = Rank.values()[ThreadLocalRandom.current().nextInt(Rank.values().length)];
+        var randomSuit = Suit.values()[ThreadLocalRandom.current().nextInt(Suit.values().length)];
+
+        return new Card(randomRank, randomSuit);
     }
 
     /**
@@ -226,6 +239,16 @@ public class Card implements Serializable, Comparable<Card> {
         var list = Arrays.asList(deck);
         Collections.shuffle(list);
         return list.toArray(Card[]::new);
+    }
+
+    /**
+     Returns a hash code for this card.
+
+     @return a hash code value for this {@code Card} object.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(rank, suit);
     }
 
     /**
