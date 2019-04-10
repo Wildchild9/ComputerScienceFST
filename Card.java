@@ -8,7 +8,6 @@ package FST;
 // Copyright © 2019 Noah Wilder and Etan Ossip. All rights reserved.
 // Last modified on 08/04/19 11:24 AM.
 
-import org.jetbrains.annotations.NotNull;
 import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -239,11 +238,11 @@ public class Card implements Serializable, Comparable<Card> {
      @throws NullPointerException if the specified {@code Card} object is null.
      */
     @Override
-    public int compareTo(@NotNull Card o) {
-        if (suit.equals(o.suit)) {
-            return rank.compareTo(o.rank);
+    public int compareTo(Card o) {
+        if (this.rank.equals(o.rank)) {
+            return this.suit.compareTo(o.suit);
         } else {
-            return suit.compareTo(o.suit);
+            return this.rank.compareTo(o.rank);
         }
     }
 
@@ -262,7 +261,6 @@ public class Card implements Serializable, Comparable<Card> {
         var card = (Card) obj;
         return rank == card.rank && suit == card.suit;
     }
-
 
     /**
      A textual representation of the card.
