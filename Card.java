@@ -248,6 +248,23 @@ public class Card implements Serializable, Comparable<Card> {
     }
 
     /**
+     Indicates whether some object is equal to this card.
+
+     @param obj the object to be checked against this card for equality.
+
+     @return {@code true} if this object is the same as the {@code obj} argument; {@code false} otherwise.
+
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Card)) return false;
+        var card = (Card) obj;
+        return rank == card.rank && suit == card.suit;
+    }
+
+
+    /**
      A textual representation of the card.
 
      @return a string describing the card.
