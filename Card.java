@@ -157,7 +157,7 @@ public class Card implements Serializable, Comparable<Card> {
      The suit of a card.
      */
     public enum Suit implements Comparable<Suit> {
-        hearts, diamonds, spades, clubs;
+        spades, hearts, diamonds, clubs;
 
         /**
          A regex string that if matched, ensures that a string is a valid suit.
@@ -228,7 +228,6 @@ public class Card implements Serializable, Comparable<Card> {
         Collections.shuffle(list);
         return list.toArray(Card[]::new);
     }
-
 
     /**
      Compares two cards by suit then by rank.
