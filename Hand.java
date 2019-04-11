@@ -1,13 +1,15 @@
 package FST;
 //
-//  CCCJunior2018
-//  Hand
+//  CCCJunior2018
+//  Hand
 //
-//  Created by Etan Ossip on 4/8/19.
-//  Copyright © 2019 Etan Ossip. All rights reserved.
+//  Created by Etan Ossip on 4/8/19.
+//  Copyright © 2019 Etan Ossip. All rights reserved.
 //
 
 import java.util.Arrays;
+import java.util.Optional;
+
 
 public class Hand {
     Card c1;
@@ -24,15 +26,11 @@ public class Hand {
         this.c5 = c5;
     }
 
-    public Hand(Card[] arr) {
-        Testing.assertEqual(arr.length, 5);
-        c1 = arr[0];
-        c2 = arr[1];
-        c3 = arr[2];
-        c4 = arr[3];
-        c5 = arr[4];
+    public static Optional<Hand> from(Card[] arr) {
+        if (arr.length != 5) return Optional.empty();
+        return Optional.of(new Hand(arr[0], arr[1], arr[2], arr[3], arr[4]));
     }
-;
+
     public Card[] cardArray() {
         Card[] arr = {c1, c2, c3, c4, c5};
         return arr;
