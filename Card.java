@@ -8,9 +8,9 @@ package FST;
 // Copyright © 2019 Noah Wilder and Etan Ossip. All rights reserved.
 // Last modified on 08/04/19 11:24 AM.
 
-import org.jetbrains.annotations.NotNull;
 import java.io.Serializable;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 /**
@@ -67,6 +67,18 @@ public class Card implements Serializable, Comparable<Card> {
         var card = new Card(rank, suit);
 
         return card;
+    }
+
+    /**
+     A card composed of a random suit and rank.
+
+     @return a new pseudorandomly generated {@code Card} object.
+     */
+    public static Card random() {
+        var randomRank = Rank.values()[ThreadLocalRandom.current().nextInt(Rank.values().length)];
+        var randomSuit = Suit.values()[ThreadLocalRandom.current().nextInt(Suit.values().length)];
+
+        return new Card(randomRank, randomSuit);
     }
 
     /**
@@ -157,7 +169,7 @@ public class Card implements Serializable, Comparable<Card> {
      The suit of a card.
      */
     public enum Suit implements Comparable<Suit> {
-        hearts, diamonds, spades, clubs;
+        spades, hearts, diamonds, clubs;
 
         /**
          A regex string that if matched, ensures that a string is a valid suit.
@@ -229,6 +241,15 @@ public class Card implements Serializable, Comparable<Card> {
         return list.toArray(Card[]::new);
     }
 
+    /**
+     Returns a hash code for this card.
+
+     @return a hash code value for this {@code Card} object.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(rank, suit);
+    }
 
     /**
      Compares two cards by suit then by rank.
@@ -240,12 +261,28 @@ public class Card implements Serializable, Comparable<Card> {
      @throws NullPointerException if the specified {@code Card} object is null.
      */
     @Override
-    public int compareTo(@NotNull Card o) {
-        if (suit.equals(o.suit)) {
-            return rank.compareTo(o.rank);
+    public int compareTo(Card o) {
+        if (this.rank.equals(o.rank)) {
+            return this.suit.compareTo(o.suit);
         } else {
-            return suit.compareTo(o.suit);
+            return this.rank.compareTo(o.rank);
         }
+    }
+
+    /**
+     Indicates whether some object is equal to this card.
+
+     @param obj the object to be checked against this card for equality.
+
+     @return {@code true} if this object is the same as the {@code obj} argument; {@code false} otherwise.
+
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Card)) return false;
+        var card = (Card) obj;
+        return rank == card.rank && suit == card.suit;
     }
 
     /**

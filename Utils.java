@@ -7,7 +7,9 @@ package FST;
 // Copyright © 2019 Noah Wilder and Etan Ossip. All rights reserved.
 // Last modified on 08/04/19 11:38 AM.
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -202,4 +204,31 @@ public class Utils {
         }
         return stringBuilder.toString();
     }
+
+    // Choose
+    public final static <T, U extends List<T>> HashSet<ArrayList<T>> choose(U list, int n) {
+        var permutations = new HashSet<ArrayList<T>>();
+
+        if (n >= list.size()) {
+            permutations.add(new ArrayList<T>(list));
+            return permutations;
+        }
+        if (n <= 0 && list.size() <= 0) {
+            return permutations;
+        }
+
+        var previousElements = new HashSet<T>();
+
+        for (var i = 0; i < list.size(); i++) {
+            var element = list.get(i);
+            if (previousElements.contains(element)) continue;
+            var listCopy = new ArrayList<T>(list);
+            previousElements.add(listCopy.remove(i));
+            permutations.addAll(choose(listCopy, n));
+
+        }
+        return permutations;
+
+    }
 }
+
