@@ -11,7 +11,6 @@ package FST;
 import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 
 /**
  A card with a rank and a suit.
@@ -38,7 +37,6 @@ public class Card implements Serializable, Comparable<Card> {
     public Card(Rank rank, Suit suit) {
         this.rank = rank;
         this.suit = suit;
-        new ArrayList<Integer>(43);
     }
 
     /**
@@ -51,14 +49,14 @@ public class Card implements Serializable, Comparable<Card> {
 
         System.out.println("Please input the rank of your card.");
 
-        while (!sc.hasNext("(.+)") || !sc.match().group().matches(Rank.validRankRegex)) {
+        while (!sc.hasNext("(.+)") || !sc.match().group().matches(Card.Rank.validRankRegex)) {
             System.out.println("Invalid rank, please try again.");
             sc.next();
         }
         var rank = Rank.from(sc.next());
 
         System.out.println("Please input the suit of your card.");
-        while (!sc.hasNext("(.+)") || !sc.match().group().matches(Suit.validSuitRegex)) {
+        while (!sc.hasNext("(.+)") || !sc.match().group().matches(Card.Suit.validSuitRegex)) {
             System.out.println("Invalid suit, please try again.");
             sc.next();
         }
@@ -95,7 +93,7 @@ public class Card implements Serializable, Comparable<Card> {
         /**
          A regex string that if matched, ensures that a string is a valid rank.
          */
-        public static final String validRankRegex = '(' + Arrays.stream(Rank.values()).map(Rank::validRegex).collect(Collectors.joining("|")) + ')';
+        public static final String validRankRegex = "(?i)^(2|two|3|three|4|four|5|five|6|six|7|seven|8|eight|9|nine|10|ten|11|j|jack|12|q|queen|13|k|king|14|1|a|ace)$";
 
         /**
          A regex string that if matched, is a valid {@code String} of the rank.
@@ -174,7 +172,7 @@ public class Card implements Serializable, Comparable<Card> {
         /**
          A regex string that if matched, ensures that a string is a valid suit.
          */
-        public static final String validSuitRegex = '(' + Arrays.stream(Suit.values()).map(Suit::validRegex).collect(Collectors.joining("|")) + ')';
+        public static final String validSuitRegex = "(?i)^(♥︎|h|hearts♦︎|d|diamonds|♠︎︎|s|spades|♣︎︎|c|clubs)$";
 
         /**
          A regex string that if matched, is a valid {@code String} of the suit.
