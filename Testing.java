@@ -7,6 +7,7 @@ package FST;
 // Copyright © 2019 Noah Wilder and Etan Ossip. All rights reserved.
 // Last modified on 01/04/19 2:22 PM.
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.function.Supplier;
@@ -26,7 +27,17 @@ public class Testing {
         var hole = new Hole(c1, c2);
 
         System.out.println("How many cards are on the table (0, 3, 4, or 5)");
+        var amt = Utils.nextValidInt(sc, "There must be either 0, 3, 4, or 5 cards on the table. Please try again.", (x) -> x == 0 || (x >= 3 && x <= 5));
 
+        var board = new ArrayList<Card>();
+
+        var ordinalNums = new String[] {"first", "second", "third", "fourth", "fifth"};
+
+        for (int i = 0; i < amt; i++) {
+            System.out.println("Please input the " + ordinalNums[i] + " card on the board");
+            board.add(Card.getCardInput(sc));
+        }
+        
     }
 
 
