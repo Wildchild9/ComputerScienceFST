@@ -26,4 +26,3 @@ public class Hole {
         return c1 + ", " + c2;
     }
 }
-
