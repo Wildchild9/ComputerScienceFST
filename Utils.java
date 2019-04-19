@@ -7,13 +7,166 @@ package FST;
 // Copyright © 2019 Noah Wilder and Etan Ossip. All rights reserved.
 // Last modified on 08/04/19 11:38 AM.
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
+import java.util.function.Predicate;
 
 
 public class Utils {
+
+    // Scanner methods
+    public static int nextValidInt(Scanner sc, String message, Predicate<Integer> condition) {
+        while (true) {
+            if (sc.hasNextInt()) {
+                var n = sc.nextInt();
+                if (condition.test(n)) {
+                    return n;
+                }
+            } else {
+                sc.next();
+            }
+            System.out.println(message);
+        }
+    }
+    public static double nextValidDouble(Scanner sc, String message, Predicate<Double> condition) {
+        while (true) {
+            if (sc.hasNextDouble()) {
+                var n = sc.nextDouble();
+                if (condition.test(n)) {
+                    return n;
+                }
+            } else {
+                sc.next();
+            }
+            System.out.println(message);
+
+        }
+    }
+    public static float nextValidFloat(Scanner sc, String message, Predicate<Float> condition) {
+        while (true) {
+            if (sc.hasNextFloat()) {
+                var n = sc.nextFloat();
+                if (condition.test(n)) {
+                    return n;
+                }
+            } else {
+                sc.next();
+            }
+            System.out.println(message);
+
+        }
+    }
+    public static long nextValidLong(Scanner sc, String message, Predicate<Long> condition) {
+        while (true) {
+            if (sc.hasNextLong()) {
+                var n = sc.nextLong();
+                if (condition.test(n)) {
+                    return n;
+                }
+            } else {
+                sc.next();
+            }
+            System.out.println(message);
+
+        }
+    }
+    public static short nextValidShort(Scanner sc, String message, Predicate<Short> condition) {
+        while (true) {
+            if (sc.hasNextShort()) {
+                var n = sc.nextShort();
+                if (condition.test(n)) {
+                    return n;
+                }
+            } else {
+                sc.next();
+            }
+            System.out.println(message);
+
+        }
+    }
+    public static byte nextValidByte(Scanner sc, String message, Predicate<Byte> condition) {
+        while (true) {
+            if (sc.hasNextByte()) {
+                var n = sc.nextByte();
+                if (condition.test(n)) {
+                    return n;
+                }
+            } else {
+                sc.next();
+            }
+            System.out.println(message);
+
+        }
+    }
+    public static boolean nextValidBoolean(Scanner sc, String message, Predicate<Boolean> condition) {
+        while (true) {
+            if (sc.hasNextBoolean()) {
+                var n = sc.nextBoolean();
+                if (condition.test(n)) {
+                    return n;
+                }
+            } else {
+                sc.next();
+            }
+            System.out.println(message);
+
+        }
+    }
+    public static String nextValidLine(Scanner sc, String message, Predicate<String> condition) {
+        while (true) {
+            if (sc.hasNextLine()) {
+                var n = sc.nextLine();
+                if (condition.test(n)) {
+                    return n;
+                }
+            } else {
+                sc.next();
+            }
+            System.out.println(message);
+
+        }
+    }
+    public static String nextValid(Scanner sc, String message, Predicate<String> condition) {
+        while (true) {
+            if (sc.hasNext()) {
+                var n = sc.next();
+                if (condition.test(n)) {
+                    return n;
+                }
+            } else {
+                sc.next();
+            }
+            System.out.println(message);
+
+        }
+    }
+
+    public static Optional<Integer> peekNextInt(Scanner sc) {
+        return sc.hasNextInt() ? Optional.of(Integer.parseInt(sc.match().group())) : Optional.empty();
+    }
+    public static Optional<Double> peekNextDouble(Scanner sc) {
+        return sc.hasNextDouble() ? Optional.of(Double.parseDouble(sc.match().group())) : Optional.empty();
+    }
+    public static Optional<Float> peekNextFloat(Scanner sc) {
+        return sc.hasNextFloat() ? Optional.of(Float.parseFloat(sc.match().group())) : Optional.empty();
+    }
+    public static Optional<Long> peekNextLong(Scanner sc) {
+        return sc.hasNextLong() ? Optional.of(Long.parseLong(sc.match().group())) : Optional.empty();
+    }
+    public static Optional<Short> peekNextShort(Scanner sc) {
+        return sc.hasNextShort() ? Optional.of(Short.parseShort(sc.match().group())) : Optional.empty();
+    }
+    public static Optional<Byte> peekNextByte(Scanner sc) {
+        return sc.hasNextByte() ? Optional.of(Byte.parseByte(sc.match().group())) : Optional.empty();
+    }
+    public static Optional<Boolean> peekNextBoolean(Scanner sc) {
+        return sc.hasNextBoolean() ? Optional.of(Boolean.parseBoolean(sc.match().group())) : Optional.empty();
+    }
+    public static Optional<String> peekNextLine(Scanner sc) {
+        return sc.hasNextLine() ? Optional.of(sc.match().group()) : Optional.empty();
+    }
+    public static Optional<String> peekNext(Scanner sc) {
+        return sc.hasNext() ? Optional.of(sc.match().group()) : Optional.empty();
+    }
 
     // Joining Methods
     public final static <Element> String joined(Element[] arr, String separator) {

@@ -1,4 +1,5 @@
 package FST;
+
 //
 // Hole.java
 // ComputerScience
@@ -26,4 +27,3 @@ public class Hole {
     }
 
 }
-

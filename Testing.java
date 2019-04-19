@@ -8,12 +8,24 @@ package FST;
 // Last modified on 01/04/19 2:22 PM.
 
 import java.util.Objects;
+import java.util.Scanner;
 import java.util.function.Supplier;
 
 
 public class Testing {
     
     public static void main(String[] args) {
+
+        var sc = new Scanner(System.in);
+
+        System.out.println("What is the first card in your hand");
+        var c1 = Card.getCardInput(sc);
+        System.out.println("What is the second card in your hand");
+        var c2 = Card.getCardInput(sc);
+
+        var hole = new Hole(c1, c2);
+
+        System.out.println("How many cards are on the table (0, 3, 4, or 5)");
 
     }
 
