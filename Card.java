@@ -48,21 +48,48 @@ public class Card implements Serializable, Comparable<Card> {
         sc.useDelimiter("\n");
 
         System.out.println("Please input the rank of your card.");
-
-        while (!sc.hasNext("(.+)") || !sc.match().group().matches(Card.Rank.validRankRegex)) {
-            System.out.println("Invalid rank, please try again.");
-            sc.next();
-        }
-        var rank = Rank.from(sc.next());
+        var rank = Utils.validInput(sc, Rank::from, "Invalid rank, please try again.");
 
         System.out.println("Please input the suit of your card.");
+        var suit = Utils.validInput(sc, Suit::from, "Invalid suit, please try again.");
+
+
         while (!sc.hasNext("(.+)") || !sc.match().group().matches(Card.Suit.validSuitRegex)) {
             System.out.println("Invalid suit, please try again.");
             sc.next();
         }
-        var suit = Suit.from(sc.next());
 
         var card = new Card(rank, suit);
+
+        return card;
+    }
+
+    /**
+     Gets information to instantiate a new {@code Card} object from the given {@code Scanner} object.
+     */
+    public static Card getCardInput(Scanner from, Card... usedCards) {
+
+        var card = getCardInput(from);
+
+        while (Utils.contains(card, usedCards)) {
+            System.out.println("Invalid input, that card has already been used. Please try again.");
+            card = getCardInput(from);
+        }
+
+        return card;
+    }
+
+    /**
+     Gets information to instantiate a new {@code Card} object from the given {@code Scanner} object.
+     */
+    public static <T extends Collection<Card>> Card getCardInput(Scanner from, T usedCards) {
+
+        var card = getCardInput(from);
+
+        while (Utils.contains(card, usedCards)) {
+            System.out.println("Invalid input, that card has already been used. Please try again.");
+            card = getCardInput(from);
+        }
 
         return card;
     }

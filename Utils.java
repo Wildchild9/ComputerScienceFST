@@ -8,6 +8,7 @@ package FST;
 // Last modified on 08/04/19 11:38 AM.
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 
@@ -168,6 +169,45 @@ public class Utils {
         return sc.hasNext() ? Optional.of(sc.match().group()) : Optional.empty();
     }
 
+    public static <T> T validOptionalInput(Scanner sc, Predicate<T> predicate, Function<String, Optional<T>> isValid, String message) {
+
+        while (true) {
+            Optional<T> optionalInput;
+            if (sc.hasNext("(.*)") && (optionalInput = isValid.apply(sc.match().group())).isPresent() && predicate.test(optionalInput.get())) {
+                sc.next();
+                return optionalInput.get();
+            }
+            System.out.println(message);
+            sc.next();
+        }
+
+    }
+    public static <T> T validOptionalInput(Scanner sc, Function<String, Optional<T>> isValid, String message) {
+        return validOptionalInput(sc, x -> true, isValid, message);
+    }
+
+    public static <T> T validInput(Scanner sc, Predicate<T> predicate, Function<String, T> isValid, String message) {
+        Function<String, Optional<T>> isValidThrowing = str -> {
+            try {
+                var input = isValid.apply(str);
+                return Optional.of(input);
+            } catch (Exception e) {
+                return Optional.empty();
+            }
+        };
+        while (true) {
+            Optional<T> optionalInput;
+            if (sc.hasNext("(.*)") && (optionalInput = isValidThrowing.apply(sc.match().group())).isPresent() && predicate.test(optionalInput.get())) {
+                sc.next();
+                return optionalInput.get();
+            }
+            System.out.println(message);
+            sc.next();
+        }
+    }
+    public static <T> T validInput(Scanner sc, Function<String, T> isValid, String message) {
+        return validInput(sc, x -> true, isValid, message);
+    }
     // Joining Methods
     public final static <Element> String joined(Element[] arr, String separator) {
         if (arr.length == 0) return "";
@@ -358,6 +398,75 @@ public class Utils {
         return stringBuilder.toString();
     }
 
+    // Contains
+
+    public final static <Element> boolean contains(Element element, Element[] arr) {
+        return Arrays.asList(arr).contains(element);
+    }
+    public final static <Element> boolean contains(Element element, List<Element> arr) {
+        return arr.stream().anyMatch(e -> e.equals(element));
+    }
+    public final static <Element> boolean contains(Element element, Iterable<Element> arr) {
+        for (var e : arr) {
+            if (e.equals(element)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public final static <Element> boolean contains(Element element, Collection<Element> arr) {
+        return arr.stream().anyMatch(e -> e.equals(element));
+    }
+    public final static boolean contains(int element, int[] arr) {
+        return Arrays.stream(arr).anyMatch(e -> e == element);
+    }
+    public final static boolean contains(long element, long[] arr) {
+        return Arrays.stream(arr).anyMatch(e -> e == element);
+    }
+    public final static boolean contains(double element, double[] arr) {
+        return Arrays.stream(arr).anyMatch(e -> e == element);
+    }
+    public final static boolean contains(short element, short[] arr) {
+        for (var e : arr) {
+            if (e == element) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public final static boolean contains(float element, float[] arr) {
+        for (var e : arr) {
+            if (e == element) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public final static boolean contains(byte element, byte[] arr) {
+        for (var e : arr) {
+            if (e == element) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public final static boolean contains(char element, char[] arr) {
+        for (var e : arr) {
+            if (e == element) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public final static boolean contains(boolean element, boolean[] arr) {
+        for (var e : arr) {
+            if (e == element) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Choose
     public final static <T, U extends List<T>> HashSet<ArrayList<T>> choose(U list, int n) {
         var permutations = new HashSet<ArrayList<T>>();
@@ -383,5 +492,31 @@ public class Utils {
         return permutations;
 
     }
+
+    // Underlined
+    public static String underlined(String str) {
+        var length = graphemeClustersLength(str);
+        var underlinedStringBuilder = new StringBuilder(length * 2);
+        for (char c: str.toCharArray()) {
+            underlinedStringBuilder.append(c);
+            underlinedStringBuilder.append('̲');
+        }
+        return underlinedStringBuilder.toString();
+
+    }
+
+    // Length of grapheme clusters in string
+    public static int graphemeClustersLength(String of) {
+        var it = java.text.BreakIterator.getCharacterInstance();
+        it.setText(of);
+        var emojiCount = 0;
+        while (it.next() != java.text.BreakIterator.DONE) {
+            emojiCount++;
+        }
+        return emojiCount;
+    }
+
+
+
 }
 

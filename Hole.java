@@ -7,7 +7,10 @@ package FST;
 // Copyright © 2019 Noah Wilder and Etan Ossip. All rights reserved.
 // Last modified on 15/04/19 2:36 PM.
 
-public class Hole {
+import java.io.Serializable;
+
+
+public class Hole implements Serializable {
 
     Card c1;
     Card c2;
@@ -26,4 +29,7 @@ public class Hole {
         return c1 + ", " + c2;
     }
 
+//    public Optional<Double> getOddsWithTable(ArrayList<Card> table) {
+//
+//    }
 }

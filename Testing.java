@@ -17,12 +17,20 @@ public class Testing {
     
     public static void main(String[] args) {
 
+        var thing = "";
+
         var sc = new Scanner(System.in);
+
+        var header = "Poker Hand Odds Calculator";
+
+        System.out.println('┌' + "─".repeat(header.length()));
+        System.out.println('│' + header);
 
         System.out.println("What is the first card in your hand");
         var c1 = Card.getCardInput(sc);
+
         System.out.println("What is the second card in your hand");
-        var c2 = Card.getCardInput(sc);
+        var c2 = Card.getCardInput(sc, c1);
 
         var hole = new Hole(c1, c2);
 
@@ -35,8 +43,14 @@ public class Testing {
 
         for (int i = 0; i < amt; i++) {
             System.out.println("Please input the " + ordinalNums[i] + " card on the board");
-            board.add(Card.getCardInput(sc));
+            var usedCards = new ArrayList<Card>(board.size() + 2);
+            usedCards.addAll(board);
+            usedCards.add(c1);
+            usedCards.add(c2);
+            board.add(Card.getCardInput(sc, usedCards));
         }
+        
+
         
     }
 
