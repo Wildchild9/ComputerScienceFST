@@ -53,6 +53,17 @@ public class Table implements Serializable {
             }
             return Optional.empty();
         }
+
+        @Override
+        public String toString() {
+            switch (this) {
+                case preflop: return "Pre-flop";
+                case flop:    return "Flop";
+                case turn:    return "Turn";
+                case river:   return "River";
+                default: throw new IllegalArgumentException("Impossible");
+            }
+        }
     }
 
 }

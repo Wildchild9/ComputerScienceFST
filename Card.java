@@ -243,10 +243,10 @@ public class Card implements Serializable, Comparable<Card> {
         @Override
         public String toString() {
             switch (this) {
-                case hearts: return "♥︎";
-                case diamonds: return "♦︎";
-                case spades: return "♠︎";
-                case clubs: return "♣︎";
+                case hearts: return "︎︎♥";
+                case diamonds: return "︎♦";
+                case spades: return "︎♠";
+                case clubs: return "︎♣";
                 default: throw new IllegalArgumentException("Impossible");
             }
         }
