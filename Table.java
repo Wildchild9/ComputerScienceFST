@@ -38,6 +38,9 @@ public class Table implements Serializable {
         return Optional.of(new Table(stage, cards));
     }
 
+    public Card[] getCards() {
+        return cards;
+    }
 
     public enum Stage implements Comparable<Stage> {
         preflop, flop, turn, river;
@@ -77,20 +80,17 @@ public class Table implements Serializable {
     @Override
     public String toString() {
         var str = new StringBuilder();
-        str.append("╔══════════════════════════╗\n");
-        str.append("║").append(Utils.padCentered(Utils.underlined(stage.toString()), 26)).append("║\n");
-        str.append("║").append(" ".repeat(26)).append("║\n");
-        str.append("║").append(Utils.padRight(" ╭──╮".repeat(stage.numberOfCards()), 26)).append("║\n");
-
+        str.append("══════════════════════════\n");
+        str.append(Utils.padCentered(Utils.underlined(stage.toString()), 26)).append("\n");
+        str.append(" ".repeat(26)).append("\n");
 
         var cardLine = new StringBuilder();
         for (var card: cards) {
-            cardLine.append("  ").append(card.toString()).append(" ");
+            cardLine.append(" ").append(card.toString()).append(" ");
         }
 
-        str.append("║").append(Utils.padRight(cardLine.toString(), 26)).append("║\n");
-        str.append("║").append(Utils.padRight(" ╰──╯".repeat(stage.numberOfCards()), 26)).append("║\n");
-        str.append("╚══════════════════════════╝");
+        str.append(Utils.padCentered(cardLine.toString(), 26)).append("\n");
+        str.append("══════════════════════════");
 
         return str.toString();
     }

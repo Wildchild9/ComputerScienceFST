@@ -53,12 +53,6 @@ public class Card implements Serializable, Comparable<Card> {
         System.out.println("Please input the suit of your card.");
         var suit = Utils.validInput(sc, Suit::from, "Invalid suit, please try again.");
 
-
-        while (!sc.hasNext("(.+)") || !sc.match().group().matches(Card.Suit.validSuitRegex)) {
-            System.out.println("Invalid suit, please try again.");
-            sc.next();
-        }
-
         var card = new Card(rank, suit);
 
         return card;
