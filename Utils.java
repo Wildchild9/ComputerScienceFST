@@ -516,6 +516,38 @@ public class Utils {
         return emojiCount;
     }
 
+    // Pads a string to the specified length
+    public static String padLeft    (String str, int toLength) {
+        if (graphemeClustersLength(str) >= toLength) {
+            return str;
+        }
+
+        var paddingLength = toLength - graphemeClustersLength(str);
+        return " ".repeat(paddingLength) + str;
+    }
+    public static String padRight   (String str, int toLength) {
+        if (graphemeClustersLength(str) >= toLength) {
+            return str;
+        }
+
+        var paddingLength = toLength - graphemeClustersLength(str);
+        return str + " ".repeat(paddingLength);
+    }
+    public static String padCentered(String str, int toLength) {
+        if (graphemeClustersLength(str) >= toLength) {
+            return str;
+        }
+
+        var paddingLength = toLength - graphemeClustersLength(str);
+        var halfPadding = " ".repeat(paddingLength / 2);
+
+        var paddedString = halfPadding + str + halfPadding;
+        if (paddingLength % 2 != 0) {
+            paddedString += " ";
+        }
+
+        return paddedString;
+    }
 
 
 }

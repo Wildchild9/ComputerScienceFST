@@ -8,8 +8,6 @@ package FST;
 // Last modified on 15/04/19 2:36 PM.
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Optional;
 
 
 public class Hole implements Serializable {
@@ -31,9 +29,9 @@ public class Hole implements Serializable {
         return c1 + ", " + c2;
     }
 
-    public Optional<Double> getOdds(Table withTable) {
-        var table = withTable;
-
-
-    }
+//    public Optional<Double> getOdds(Table withTable) {
+//        var table = withTable;
+//
+//
+//    }
 }

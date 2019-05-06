@@ -35,29 +35,29 @@ public class Testing {
         var hole = new Hole(c1, c2);
 
         System.out.println("How many cards are on the table (0, 3, 4, or 5)");
-        var amt = Utils.nextValidInt(sc, "There must be either 0, 3, 4, or 5 cards on the table. Please try again.", x -> x == 0 || x >= 3 && x <= 5);
+        var numberOfCards = Utils.nextValidInt(sc, "There must be either 0, 3, 4, or 5 cards on the table. Please try again.", x -> x == 0 || x >= 3 && x <= 5);
 
-        var board = new ArrayList<Card>();
+        var tableCards = new ArrayList<Card>();
 
-        var usedCards = new ArrayList<Card>(board.size() + 2);
+        var usedCards = new ArrayList<Card>(tableCards.size() + 2);
         usedCards.add(c1);
         usedCards.add(c2);
 
         var ordinalNumbers = new String[]{"first", "second", "third", "fourth", "fifth"};
 
-        for (var i = 0; i < amt; i++) {
+        for (var i = 0; i < numberOfCards; i++) {
             System.out.println("Please input the " + ordinalNumbers[i] + " card on the board");
 
             var card = Card.getCardInput(sc, usedCards);
             usedCards.add(card);
-            board.add(card);
+            tableCards.add(card);
         }
 
+        var stage = Table.Stage.of(numberOfCards).orElseThrow();
 
+        var table = Table.of(tableCards, stage);
 
-
-
-
+        System.out.println(table);
         
     }
 

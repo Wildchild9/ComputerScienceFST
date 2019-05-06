@@ -108,8 +108,12 @@ public class Card implements Serializable, Comparable<Card> {
 
     /**
      A full deck containing all 52 distinct cards sorted by suit then rank.
+
+     @returns An array of a standard 52 card deck.
      */
-    public static final Card[] deck = Arrays.stream(Suit.values()).flatMap(s -> Arrays.stream(Rank.values()).map(r -> new Card(r, s))).toArray(Card[]::new);
+    public static Card[] deck() {
+        return Arrays.stream(Suit.values()).flatMap(s -> Arrays.stream(Rank.values()).map(r -> new Card(r, s))).toArray(Card[]::new);
+    }
 
     /**
      The rank of a card.
@@ -180,7 +184,7 @@ public class Card implements Serializable, Comparable<Card> {
                 case seven: return "7";
                 case eight: return "8";
                 case nine: return "9";
-                case ten: return "10";
+                case ten: return "T";
                 case jack: return "J";
                 case queen: return "Q";
                 case king: return "K";
