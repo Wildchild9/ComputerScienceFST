@@ -44,6 +44,15 @@ public class Table implements Serializable {
                 default: throw new IllegalArgumentException("Impossible");
             }
         }
+
+        public static Optional<Stage> of(int numberOfCards) {
+            for (var stage: Stage.values()) {
+                if (stage.numberOfCards() == numberOfCards) {
+                    return Optional.of(stage);
+                }
+            }
+            return Optional.empty();
+        }
     }
 
 }
