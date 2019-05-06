@@ -67,7 +67,7 @@ public class Main {
 
 
         if (probability.isEmpty()) {
-            System.out.println("\nThere was a problem calculating the odds of your poker hand. Please check your connection try again later.");
+            System.out.println("\nThere was a problem calculating the odds of your poker hand. Please check your connection and try again later.");
             return;
         }
 

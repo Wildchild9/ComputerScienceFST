@@ -37,8 +37,8 @@ public class Hole implements Serializable {
     public Optional<Double> getOdds(Table withTable) {
         var table = withTable;
 
-        var holeStr = "hole=" + Arrays.stream(cardArray()).map(c -> c.rank.toString().toUpperCase() + ("" + c.suit.name().charAt(0)).toLowerCase()).collect(Collectors.joining("%2C"));
-        var tableStr = table.stage.equals(Table.Stage.preflop) ? "" : ("board=" + Arrays.stream(table.getCards()).map(c -> c.rank.toString().toUpperCase() + ("" + c.suit.name().charAt(0)).toLowerCase()).collect(Collectors.joining("%2C")) + "&");
+        var holeStr = "hole=" + Arrays.stream(cardArray()).map(c -> (c.rank.equals(Card.Rank.ten) ? "T" : c.rank.toString().toUpperCase()) + ("" + c.suit.name().charAt(0)).toLowerCase()).collect(Collectors.joining("%2C"));
+        var tableStr = table.stage.equals(Table.Stage.preflop) ? "" : "board=" + Arrays.stream(table.getCards()).map(c -> (c.rank.equals(Card.Rank.ten) ? "T" : c.rank.toString().toUpperCase()) + ("" + c.suit.name().charAt(0)).toLowerCase()).collect(Collectors.joining("%2C")) + "&";
         var stageStr = table.stage.toString().toLowerCase();
 
         double avgOdds;
@@ -48,13 +48,19 @@ public class Hole implements Serializable {
                                   .header("X-RapidAPI-Key", "c9032d8530msh14c10fbe1d1fd9ep19fed9jsnf53e3d5f90a0")
                                   .asJson();
 
-
             if (table.stage.equals(Table.Stage.preflop)) {
                 avgOdds = response.getBody().getObject()
                                   .getJSONObject("data")
                                   .getJSONObject("ranking")
                                   .getJSONObject("average")
                                   .getDouble("rank_top_percent");
+            } else if (table.stage.equals(Table.Stage.river)) {
+                avgOdds = response.getBody().getObject()
+                                  .getJSONObject("data")
+                                  .getJSONObject("winning")
+                                  .getDouble("probability");
+                avgOdds *= 100;
+
             } else {
                 avgOdds = response.getBody().getObject()
                                   .getJSONObject("data")

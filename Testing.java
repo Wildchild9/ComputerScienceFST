@@ -7,9 +7,7 @@ package FST;
 // Copyright © 2019 Noah Wilder and Etan Ossip. All rights reserved.
 // Last modified on 01/04/19 2:22 PM.
 
-import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Scanner;
 import java.util.function.Supplier;
 
 

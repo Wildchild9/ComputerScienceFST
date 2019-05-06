@@ -178,7 +178,7 @@ public class Card implements Serializable, Comparable<Card> {
                 case seven: return "7";
                 case eight: return "8";
                 case nine: return "9";
-                case ten: return "T";
+                case ten: return "10";
                 case jack: return "J";
                 case queen: return "Q";
                 case king: return "K";
