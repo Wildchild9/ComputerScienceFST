@@ -23,8 +23,8 @@ public class HandType {
                 case fourOfAKind: return "4K";
                 case threeOfAKind: return "3K";
                 case straightFlush: return "SF";
+                default: throw new IllegalArgumentException("Unreachable statement");
             }
-            return "What...";
         }
 
         @Override
@@ -39,7 +39,7 @@ public class HandType {
                 case fourOfAKind: return "Four of a kind";
                 case threeOfAKind: return "Three of a kind";
                 case straightFlush: return "Straight flush";
-                default: return "uh what?";
+                default: throw new IllegalArgumentException("Unreachable statement");
             }
         }
     }
