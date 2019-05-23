@@ -1,11 +1,11 @@
 package FST;
+
 //
-//  CCCJunior2018
-//  HandRankingThingy
+// HandType.java
+// ComputerScience
 //
-//  Created by Etan Ossip on 2019-05-22.
-//  Copyright © 2019 Etan Ossip. All rights reserved.
-//
+// Copyright © 2019 Noah Wilder and Etan Ossip. All rights reserved.
+// Last modified on 23/05/19 10:50 AM.
 
 public class HandType {
 

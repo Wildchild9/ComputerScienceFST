@@ -8,7 +8,6 @@ package FST;
 // Last modified on 15/04/19 2:36 PM.
 
 import kong.unirest.Unirest;
-
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Optional;
@@ -268,3 +267,4 @@ public class Hole implements Serializable {
         return Optional.of(hitChance);
     }
 }
+
