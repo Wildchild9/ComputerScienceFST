@@ -62,17 +62,29 @@ public class Main {
         System.out.println("\n" + table);
 
         var probability = hole.getOdds(table);
+        var topHand = hole.getTopHand(table);
+        var averageHand = hole.getTopHand(table);
+        var worstHand = hole.getTopHand(table);
 
         System.out.println("\nHole: " + hole);
 
 
-        if (probability.isEmpty()) {
+        if (probability.isEmpty() || topHand.isEmpty() || averageHand.isEmpty() || worstHand.isEmpty()) {
             System.out.println("\nThere was a problem calculating the odds of your poker hand. Please check your connection and try again later.");
             return;
         }
 
         System.out.println("\n" + Utils.underlined("Probability:") + " " + probability.get() + "%\n");
+        System.out.println("\n" + Utils.underlined("Best case hand:") + " " + topHand.get() + "%\n");
+        System.out.println("\n" + Utils.underlined("Average hand:") + " " + averageHand.get() + "%\n");
+        System.out.println("\n" + Utils.underlined("Worst case hand:") + " " + worstHand.get() + "%\n");
 
+        for (HandType.Hand h: HandType.Hand.values()) {
+            System.out.println("\n" + Utils.underlined("Chance to get " + h) + " " + hole.chanceToHit(h, table).get() + "%\n");
+        }
+
+        for (HandType.Hand h: HandType.Hand.values()) {
+            System.out.println("\n" + Utils.underlined("Chance to get " + h) + " " + hole.chanceToHitAtLeast(h, table).get() + "%\n");
+        }
     }
-
 }

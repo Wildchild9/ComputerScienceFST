@@ -1,6 +1,5 @@
 package FST;
 
-
 //
 // Table.java
 // ComputerScience
@@ -12,7 +11,6 @@ package FST;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Optional;
-
 
 public class Table implements Serializable {
 
