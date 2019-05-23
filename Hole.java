@@ -7,9 +7,12 @@ package FST;
 // Copyright © 2019 Noah Wilder and Etan Ossip. All rights reserved.
 // Last modified on 15/04/19 2:36 PM.
 
+import kong.unirest.HttpResponse;
+import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -77,4 +80,6 @@ public class Hole implements Serializable {
         return Optional.of(avgOdds);
 
     }
+
 }
+
