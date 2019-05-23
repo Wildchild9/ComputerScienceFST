@@ -197,7 +197,7 @@ public class Hole implements Serializable {
         return Optional.of(topHand);
     }
 
-    public Optional<Double> chanceToHit(HandType.Hand hand, Table withTable) {
+    public Optional<Double> chanceToHit(Hand hand, Table withTable) {
         var table = withTable;
 
         var holeStr = "hole=" + Arrays.stream(cardArray()).map(c -> (c.rank.equals(Card.Rank.ten) ? "T" : c.rank.toString().toUpperCase()) + ("" + c.suit.name().charAt(0)).toLowerCase()).collect(Collectors.joining("%2C"));
@@ -215,7 +215,7 @@ public class Hole implements Serializable {
                 hitChance = response.getBody().getObject()
                         .getJSONObject("data")
                         .getJSONObject("hit")
-                        .getDouble(hand.asString()) * 100.0;
+                        .getDouble(hand.identifier()) * 100.0;
             } else if (table.stage.equals(Table.Stage.river)) {
                 return Optional.empty();
             } else {
@@ -223,7 +223,7 @@ public class Hole implements Serializable {
                         .getJSONObject("data")
                         .getJSONObject("me")
                         .getJSONObject("hit")
-                        .getDouble(hand.asString()) * 100.0;
+                        .getDouble(hand.identifier()) * 100.0;
             }
         } catch (Exception e) {
             return Optional.empty();
@@ -232,7 +232,7 @@ public class Hole implements Serializable {
         return Optional.of(hitChance);
     }
 
-    public Optional<Double> chanceToHitAtLeast(HandType.Hand hand, Table withTable) {
+    public Optional<Double> chanceToHitAtLeast(Hand hand, Table withTable) {
         var table = withTable;
 
         var holeStr = "hole=" + Arrays.stream(cardArray()).map(c -> (c.rank.equals(Card.Rank.ten) ? "T" : c.rank.toString().toUpperCase()) + ("" + c.suit.name().charAt(0)).toLowerCase()).collect(Collectors.joining("%2C"));
@@ -250,7 +250,7 @@ public class Hole implements Serializable {
                 hitChance = response.getBody().getObject()
                         .getJSONObject("data")
                         .getJSONObject("hit_at_least")
-                        .getDouble(hand.asString()) * 100.0;
+                        .getDouble(hand.identifier()) * 100.0;
             } else if (table.stage.equals(Table.Stage.river)) {
                 return Optional.empty();
             } else {
@@ -258,7 +258,7 @@ public class Hole implements Serializable {
                         .getJSONObject("data")
                         .getJSONObject("me")
                         .getJSONObject("hit_at_least")
-                        .getDouble(hand.asString()) * 100.0;
+                        .getDouble(hand.identifier()) * 100.0;
             }
         } catch (Exception e) {
             return Optional.empty();

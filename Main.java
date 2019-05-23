@@ -77,15 +77,15 @@ public class Main {
         System.out.println("\n" + Utils.underlined("Average hand:") + " " + averageHand.get() + "\n");
         System.out.println("\n" + Utils.underlined("Worst case hand:") + " " + worstHand.get() + "\n");
 
-        if (hole.chanceToHit(HandType.Hand.onePair, table).isEmpty()) {
+        if (hole.chanceToHit(Hand.onePair, table).isEmpty()) {
             return;
         }
 
-        for (HandType.Hand h: HandType.Hand.values()) {
+        for (Hand h: Hand.values()) {
             System.out.println("\n" + Utils.underlined("Chance to hit " + h) + " " + hole.chanceToHit(h, table).get() + "%\n");
         }
 
-        for (HandType.Hand h: HandType.Hand.values()) {
+        for (Hand h: Hand.values()) {
             System.out.println("\n" + Utils.underlined("Chance to hit at least " + h) + " " + hole.chanceToHitAtLeast(h, table).get() + "%\n");
         }
     }
