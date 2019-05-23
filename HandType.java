@@ -9,22 +9,38 @@ package FST;
 
 public class HandType {
 
-    public enum Hands {
-        HighCard, OnePair, TwoPair, ThreeOfAKind, FourOfAKind, FullHouse, Flush, StraightFlush, Straight;
+    public enum Hand {
+        highCard, onePair, twoPair, threeOfAKind, fourOfAKind, fullHouse, flush, straightFlush, straight;
 
         public String asString() {
             switch (this) {
-                case Flush: return "FL";
-                case OnePair: return "1P";
-                case TwoPair: return "2P";
-                case HighCard: return "HC";
-                case Straight: return "ST";
-                case FullHouse: return "FH";
-                case FourOfAKind: return "4K";
-                case ThreeOfAKind: return "3K";
-                case StraightFlush: return "SF";
+                case flush: return "FL";
+                case onePair: return "1P";
+                case twoPair: return "2P";
+                case highCard: return "HC";
+                case straight: return "ST";
+                case fullHouse: return "FH";
+                case fourOfAKind: return "4K";
+                case threeOfAKind: return "3K";
+                case straightFlush: return "SF";
             }
             return "What...";
+        }
+
+        @Override
+        public String toString() {
+            switch (this) {
+                case flush: return "Flush";
+                case onePair: return "One pair";
+                case twoPair: return "Two pair";
+                case highCard: return "High card";
+                case straight: return "Straight";
+                case fullHouse: return "Full house";
+                case fourOfAKind: return "Four of a kind";
+                case threeOfAKind: return "Three of a kind";
+                case straightFlush: return "Straight flush";
+                default: return "uh what?";
+            }
         }
     }
 }
