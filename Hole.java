@@ -218,11 +218,7 @@ public class Hole implements Serializable {
                         .getJSONObject("hit")
                         .getDouble(hand.asString()) * 100.0;
             } else if (table.stage.equals(Table.Stage.river)) {
-                var handString = response.getBody().getObject()
-                        .getJSONObject("data")
-                        .getJSONObject("me")
-                        .getString("hit");
-                hitChance = handString.equals(hand.asString()) ? 100.0 : 0.0;
+                return Optional.empty();
             } else {
                 hitChance = response.getBody().getObject()
                         .getJSONObject("data")
@@ -257,37 +253,7 @@ public class Hole implements Serializable {
                         .getJSONObject("hit_at_least")
                         .getDouble(hand.asString()) * 100.0;
             } else if (table.stage.equals(Table.Stage.river)) {
-                var handString = response.getBody().getObject()
-                        .getJSONObject("data")
-                        .getJSONObject("me")
-                        .getString("hit");
-                hitChance = 0.0;
-
-                if (hand.asString().equals("HC")) {
-                    hitChance = 100.0;
-                } else if (hand.asString().equals("1P")) {
-                    if (handString.equals("2P") || handString.equals("3K") || handString.equals("4K") || handString.equals("FH")) {
-                        hitChance = 100.0;
-                    }
-                } else if (hand.asString().equals("2P")) {
-                    if (handString.equals("FH")) {
-                        hitChance = 100.0;
-                    } else {
-                        hitChance = 0.0;
-                    }
-                } else if (hand.asString().equals("ST") || hand.asString().equals("FL")) {
-                    if (handString.equals("SF")) {
-                        hitChance = 100.0;
-                    }
-                } else if (hand.asString().equals("3K")) {
-                    if (handString.equals("4K")) {
-                        hitChance = 100.0;
-                    }
-                }
-
-                if (hand.asString().equals(handString)) {
-                    hitChance = 100.0;
-                }
+                return Optional.empty();
             } else {
                 hitChance = response.getBody().getObject()
                         .getJSONObject("data")
