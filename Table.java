@@ -13,12 +13,10 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Optional;
 
-
 public class Table implements Serializable {
 
     public final Stage stage;
     private final Card[] cards;
-
 
     private Table(Stage stage, Card[] cards) {
         this.stage = stage;
