@@ -59,18 +59,32 @@ public class Main {
 
         System.out.println("\n" + table);
 
+<<<<<<< HEAD
+=======
+        var probability = hole.getOdds(table);
+        var topHand = hole.getTopHand(table);
+        var averageHand = hole.getTopHand(table);
+        var worstHand = hole.getTopHand(table);
+
+>>>>>>> 50bc888900b1e0800e1ec988ae1c5be99e7d6d35
         System.out.println("\nHole: " + hole);
 
         System.out.println("\nLoading...\n");
 
         var apiResponseOptional = hole.apiResponse(table);
 
+<<<<<<< HEAD
         if (apiResponseOptional.isEmpty()) {
             System.out.println("There was an error calculating the statistics for your hand.\nPlease check your connection and try again later.");
+=======
+        if (probability.isEmpty() || topHand.isEmpty() || averageHand.isEmpty() || worstHand.isEmpty()) {
+            System.out.println("\nThere was a problem calculating the odds of your poker hand. Please check your connection and try again later.");
+>>>>>>> 50bc888900b1e0800e1ec988ae1c5be99e7d6d35
             return;
         }
         var apiResponse = apiResponseOptional.get();
 
+<<<<<<< HEAD
         var probability = hole.getOdds(table, apiResponse);
         var topHand = hole.getTopHand(table, apiResponse);
 
@@ -109,6 +123,23 @@ public class Main {
         System.out.println("\n▿ " + Utils.underlined("Chance to hit at least"));
         for (var hand: Hand.values()) {
             System.out.println("  - " + hand + ": " + hole.chanceToHitAtLeast(hand, table, apiResponse).get() + "%\n");
+=======
+        System.out.println("\n" + Utils.underlined("Probability:") + " " + probability.get() + "\n");
+        System.out.println("\n" + Utils.underlined("Best case hand:") + " " + topHand.get() + "\n");
+        System.out.println("\n" + Utils.underlined("Average hand:") + " " + averageHand.get() + "\n");
+        System.out.println("\n" + Utils.underlined("Worst case hand:") + " " + worstHand.get() + "\n");
+
+        if (hole.chanceToHit(Hand.onePair, table).isEmpty()) {
+            return;
+        }
+
+        for (Hand h: Hand.values()) {
+            System.out.println("\n" + Utils.underlined("Chance to hit " + h) + " " + hole.chanceToHit(h, table).get() + "%\n");
+        }
+
+        for (Hand h: Hand.values()) {
+            System.out.println("\n" + Utils.underlined("Chance to hit at least " + h) + " " + hole.chanceToHitAtLeast(h, table).get() + "%\n");
+>>>>>>> 50bc888900b1e0800e1ec988ae1c5be99e7d6d35
         }
     }
 }

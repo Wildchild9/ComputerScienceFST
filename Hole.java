@@ -10,7 +10,6 @@ package FST;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
-
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Optional;
@@ -87,6 +86,7 @@ public class Hole implements Serializable {
         return avgOdds;
 
     }
+
 
     public String getTopHand(Table withTable, HttpResponse<JsonNode> response) {
         var table = withTable;
