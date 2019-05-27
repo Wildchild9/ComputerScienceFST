@@ -12,8 +12,15 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Optional;
 
+
+/**
+ A table consisting of the played cards and the corresponding stage of the poker game.
+ */
 public class Table implements Serializable {
 
+    /**
+     The stage of the table.
+     */
     public final Stage stage;
     private final Card[] cards;
 
@@ -22,26 +29,76 @@ public class Table implements Serializable {
         this.cards = cards;
     }
 
-    public static <T extends Collection<Card>> Optional<Table> of(T cards, Stage stage) {
-        if (cards.size() != stage.numberOfCards()) {
+    /**
+     Returns a new instance of {@code Table} with the specified number of cards. The {@code cards} collection must
+     consist of either 0, 3, 4, or 5 cards to be valid.
+
+     @param <T>   the type of collection of cards.
+     @param cards the cards on the table.A table consisting of the specified cards. Returns if there are an invalid{@code
+     Optional.empty()} if number of cards in {@code cards} is invalid.
+
+     @return the optional
+     */
+    public static <T extends Collection<Card>> Optional<Table> of(T cards) {
+        var optionalStage = Stage.of(cards.size());
+        if (optionalStage.isEmpty()) {
             return Optional.empty();
         }
-        return Optional.of(new Table(stage, cards.toArray(Card[]::new)));
-    }
-    public static Optional<Table> of(Card[] cards, Stage stage) {
-        if (cards.length != stage.numberOfCards()) {
-            return Optional.empty();
-        }
-        return Optional.of(new Table(stage, cards));
+        return Optional.of(new Table(optionalStage.get(), cards.toArray(Card[]::new)));
     }
 
+    /**
+     Returns a new instance of {@code Table} with the specified number of cards. The {@code cards} array must consist of
+     either 0, 3, 4, or 5 cards to be valid.
+
+     @param cards the cards on the table.
+
+     @return A table consisting of the specified cards. Returns if there are an invalid{@code Optional.empty()} if number
+     of cards in {@code cards} is invalid.
+     */
+    public static Optional<Table> of(Card[] cards) {
+        var optionalStage = Stage.of(cards.length);
+        if (optionalStage.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(new Table(optionalStage.get(), cards));
+    }
+
+    /**
+     The cards on the table.
+
+     @return an array of the cards on the table.
+     */
     public Card[] getCards() {
         return cards;
     }
 
+    /**
+     The stage of a poker game.
+     */
     public enum Stage implements Comparable<Stage> {
-        preflop, flop, turn, river;
+        /**
+         Preflop stage.
+         */
+        preflop,
+        /**
+         Flop stage.
+         */
+        flop,
+        /**
+         Turn stage.
+         */
+        turn,
+        /**
+         River stage.
+         */
+        river;
 
+        /**
+         The number of cards on the table at the stage.
+
+         @return an {@code int} of the number of cards on the table.
+         */
         public int numberOfCards() {
             switch (this) {
                 case preflop: return 0;
@@ -52,6 +109,14 @@ public class Table implements Serializable {
             }
         }
 
+        /**
+         The stage where in there are the specified {@code numberOfCards} on the table.
+
+         @param numberOfCards the number of cards corresponding to the stage.
+
+         @return the stage with the corresponding amount of cards. Returns {@code Optional.empty()}if no valid stages
+         match the number of cards provided.
+         */
         public static Optional<Stage> of(int numberOfCards) {
             for (var stage: Stage.values()) {
                 if (stage.numberOfCards() == numberOfCards) {
@@ -61,6 +126,12 @@ public class Table implements Serializable {
             return Optional.empty();
         }
 
+        /**
+         The next stage after this current stage.
+
+         @return the stage after this stage. Returns {@code Optional.empty()} if the current stage is{@code
+         Table.Stage.river}.
+         */
         public Optional<Stage> next() {
             switch (this) {
                 case preflop: return Optional.of(preflop);
@@ -104,19 +175,4 @@ public class Table implements Serializable {
     }
 
 }
-/*
- ╔══════════════════════════╗
- ║           F̲l̲o̲p̲           ║
- ║                          ║
- ║ ╭──╮ ╭──╮ ╭──╮ ╭──╮ ╭──╮ ║
- ║ │4♥│ │7♣│ │8♦│ │9♠│ │A♦│ ║
- ║ ╰──╯ ╰──╯ ╰──╯ ╰──╯ ╰──╯ ║
- ╚══════════════════════════╝
- ╔══════════════════════════╗
- ║           F̲l̲o̲p̲           ║
- ║                          ║
- ║ ╭──╮ ╭──╮ ╭──╮ ╭──╮ ╭──╮ ║
- ║ │4♥│ │7♣│ │8♦│ │  │ │  │ ║
- ║ ╰──╯ ╰──╯ ╰──╯ ╰──╯ ╰──╯ ║
- ╚══════════════════════════╝
- */
+

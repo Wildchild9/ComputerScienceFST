@@ -7,9 +7,54 @@ package FST;
 // Copyright © 2019 Noah Wilder and Etan Ossip. All rights reserved.
 // Last modified on 23/05/19 10:50 AM.
 
-public enum Hand {
-    highCard, onePair, twoPair, threeOfAKind, fourOfAKind, fullHouse, flush, straightFlush, straight;
 
+/**
+ The classification of a poker hand.
+ */
+public enum Hand implements Comparable<Hand> {
+    /**
+     High card.
+     */
+    highCard,
+    /**
+     One pair.
+     */
+    onePair,
+    /**
+     Two pair.
+     */
+    twoPair,
+    /**
+     Three of a kind.
+     */
+    threeOfAKind,
+    /**
+     Straight.
+     */
+    straight,
+    /**
+     Flush.
+     */
+    flush,
+    /**
+     Full house.
+     */
+    fullHouse,
+    /**
+     Four of a kind.
+     */
+    fourOfAKind,
+    /**
+     Straight flush.
+     */
+    straightFlush;
+
+
+    /**
+     Returns an identification string of the hand for API call.
+
+     @return An identification string.
+     */
     public String identifier() {
         switch (this) {
             case flush:

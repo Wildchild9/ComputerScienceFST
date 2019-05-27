@@ -13,8 +13,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
+/**
+ The main executable class of the program.
+ */
 public class Main {
 
+    /**
+     The entry point of application.
+
+     @param args the input arguments
+     */
     public static void main(String[] args) {
 
         var sc = new Scanner(System.in);
@@ -53,9 +61,7 @@ public class Main {
             tableCards.add(card);
         }
 
-        var stage = Table.Stage.of(numberOfCards).orElseThrow();
-
-        var table = Table.of(tableCards, stage).orElseThrow();
+        var table = Table.of(tableCards).orElseThrow();
 
         System.out.println("\n" + table);
 
@@ -76,7 +82,7 @@ public class Main {
         var topHand = hole.getTopHand(table, apiResponse);
 
         if (table.stage.equals(Table.Stage.river)) {
-            System.out.println("\n" + Utils.underlined("Probability:") + " " + probability + "\n");
+            System.out.println("\n" + Utils.underlined("Probability:") + " " + probability + "%\n");
             System.out.println(Utils.underlined("Your hand:") + " " + topHand);
             return;
         }
@@ -93,7 +99,7 @@ public class Main {
 
         System.out.println("\n" + Utils.underlined("Statistics for " + table.stage.next().get().name() + ":\n"));
 
-        System.out.println("\n" + Utils.underlined("Probability:") + " " + probability + "\n");
+        System.out.println("\n" + Utils.underlined("Probability:") + " " + probability + "%\n");
         System.out.println(Utils.underlined("Best case hand:") + " " + topHand.toLowerCase());
         System.out.println(Utils.underlined("Average hand:") + " " + averageHand.toLowerCase());
         System.out.println(Utils.underlined("Worst case hand:") + " " + worstHand.toLowerCase());
@@ -104,13 +110,12 @@ public class Main {
 
         System.out.println("\n▿ " + Utils.underlined("Chance to hit"));
         for (var hand: Hand.values()) {
-            System.out.println("  - " + hand + ": " + hole.chanceToHit(hand, table, apiResponse).get() + "%\n");
+            System.out.println("  - " + hand + ": " + hole.chanceToHit(hand, table, apiResponse).get() + "%");
         }
 
         System.out.println("\n▿ " + Utils.underlined("Chance to hit at least"));
         for (var hand: Hand.values()) {
-            System.out.println("  - " + hand + ": " + hole.chanceToHitAtLeast(hand, table, apiResponse).get() + "%\n");
-
+            System.out.println("  - " + hand + ": " + hole.chanceToHitAtLeast(hand, table, apiResponse).get() + "%");
         }
     }
 }

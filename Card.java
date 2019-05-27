@@ -12,13 +12,14 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
+
 /**
  A card with a rank and a suit.
  */
 public class Card implements Serializable, Comparable<Card> {
 
     /**
-    The rank of the card.
+     The rank of the card.
      */
     public Rank rank;
 
@@ -32,7 +33,6 @@ public class Card implements Serializable, Comparable<Card> {
 
      @param rank the rank of the card.
      @param suit the suit of the card.
-
      */
     public Card(Rank rank, Suit suit) {
         this.rank = rank;
@@ -41,6 +41,10 @@ public class Card implements Serializable, Comparable<Card> {
 
     /**
      Gets information to instantiate a new {@code Card} object from the given {@code Scanner} object.
+
+     @param from the from
+
+     @return the card input
      */
     public static Card getCardInput(Scanner from) {
 
@@ -60,6 +64,11 @@ public class Card implements Serializable, Comparable<Card> {
 
     /**
      Gets information to instantiate a new {@code Card} object from the given {@code Scanner} object.
+
+     @param from      the from
+     @param usedCards the used cards
+
+     @return the card input
      */
     public static Card getCardInput(Scanner from, Card... usedCards) {
 
@@ -75,6 +84,12 @@ public class Card implements Serializable, Comparable<Card> {
 
     /**
      Gets information to instantiate a new {@code Card} object from the given {@code Scanner} object.
+
+     @param <T>       the type parameter
+     @param from      the from
+     @param usedCards the used cards
+
+     @return the card input
      */
     public static <T extends Collection<Card>> Card getCardInput(Scanner from, T usedCards) {
 
@@ -103,7 +118,7 @@ public class Card implements Serializable, Comparable<Card> {
     /**
      A full deck containing all 52 distinct cards sorted by suit then rank.
 
-     @returns An array of a standard 52 card deck.
+     @return an array of a standard 52 card deck.
      */
     public static Card[] deck() {
         return Arrays.stream(Suit.values()).flatMap(s -> Arrays.stream(Rank.values()).map(r -> new Card(r, s))).toArray(Card[]::new);
@@ -113,7 +128,58 @@ public class Card implements Serializable, Comparable<Card> {
      The rank of a card.
      */
     public enum Rank implements Comparable<Rank> {
-        two, three, four, five, six, seven, eight, nine, ten, jack, queen, king, ace;
+        /**
+         Two rank.
+         */
+        two,
+        /**
+         Three rank.
+         */
+        three,
+        /**
+         Four rank.
+         */
+        four,
+        /**
+         Five rank.
+         */
+        five,
+        /**
+         Six rank.
+         */
+        six,
+        /**
+         Seven rank.
+         */
+        seven,
+        /**
+         Eight rank.
+         */
+        eight,
+        /**
+         Nine rank.
+         */
+        nine,
+        /**
+         Ten rank.
+         */
+        ten,
+        /**
+         Jack rank.
+         */
+        jack,
+        /**
+         Queen rank.
+         */
+        queen,
+        /**
+         King rank.
+         */
+        king,
+        /**
+         Ace rank.
+         */
+        ace;
 
         /**
          A regex string that if matched, ensures that a string is a valid rank.
@@ -151,7 +217,8 @@ public class Card implements Serializable, Comparable<Card> {
 
          @return the rank of the given string.
 
-         @throws IllegalFormatException if {@code str} is an not match any of the ranks. Throws when {@code str} does not match {@code Rank.validRankRegex}.
+         @throws IllegalFormatException if {@code str} is an not match any of the ranks. Throws when {@code
+         str}doesnotmatch {@code Rank.validRankRegex}.
          */
         public static Rank from(String str) throws IllegalFormatException {
             for (var rank: Rank.values()) {
@@ -192,7 +259,22 @@ public class Card implements Serializable, Comparable<Card> {
      The suit of a card.
      */
     public enum Suit implements Comparable<Suit> {
-        spades, hearts, diamonds, clubs;
+        /**
+         Spades suit.
+         */
+        spades,
+        /**
+         Hearts suit.
+         */
+        hearts,
+        /**
+         Diamonds suit.
+         */
+        diamonds,
+        /**
+         Clubs suit.
+         */
+        clubs;
 
         /**
          A regex string that if matched, ensures that a string is a valid suit.
@@ -221,7 +303,8 @@ public class Card implements Serializable, Comparable<Card> {
 
          @return the suit of the given string.
 
-         @throws IllegalFormatException if {@code str} is an not match any of the suits. Throws when {@code str} does not match {@code Suit.validSuitRegex}.
+         @throws IllegalFormatException if {@code str} is an not match any of the suits. Throws when {@code
+         str}doesnotmatch {@code Suit.validSuitRegex}.
          */
         public static Suit from(String str) throws IllegalFormatException {
             for (var suit: Suit.values()) {
@@ -308,11 +391,6 @@ public class Card implements Serializable, Comparable<Card> {
         return rank == card.rank && suit == card.suit;
     }
 
-    /**
-     A textual representation of the card.
-
-     @return a string describing the card.
-     */
     @Override
     public String toString() {
         return "" + rank + suit;
