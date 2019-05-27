@@ -1,6 +1,5 @@
 package FST;
 
-
 //
 // Table.java
 // ComputerScience
@@ -13,12 +12,10 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Optional;
 
-
 public class Table implements Serializable {
 
     public final Stage stage;
     private final Card[] cards;
-
 
     private Table(Stage stage, Card[] cards) {
         this.stage = stage;
@@ -63,6 +60,17 @@ public class Table implements Serializable {
             }
             return Optional.empty();
         }
+
+        public Optional<Stage> next() {
+            switch (this) {
+                case preflop: return Optional.of(preflop);
+                case flop:    return Optional.of(flop);
+                case turn:    return Optional.of(turn);
+                case river:   return Optional.empty();
+                default: throw new IllegalArgumentException("Impossible");
+            }
+        }
+
 
         @Override
         public String toString() {
