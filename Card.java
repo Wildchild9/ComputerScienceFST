@@ -42,9 +42,9 @@ public class Card implements Serializable, Comparable<Card> {
     /**
      Gets information to instantiate a new {@code Card} object from the given {@code Scanner} object.
 
-     @param from the from
+     @param from the scanner from which to request the information to construct a card.
 
-     @return the card input
+     @return a card constructed of the inputs from the given scanner.
      */
     public static Card getCardInput(Scanner from) {
 
@@ -85,11 +85,11 @@ public class Card implements Serializable, Comparable<Card> {
     /**
      Gets information to instantiate a new {@code Card} object from the given {@code Scanner} object.
 
-     @param <T>       the type parameter
-     @param from      the from
-     @param usedCards the used cards
+     @param <T>       the type of collection of the used cards.
+     @param from      the scanner from which to request the cards.
+     @param usedCards the cards that have been used already. Prevents duplicate card creation.
 
-     @return the card input
+     @return a card constructed from inputs from the given scanner.
      */
     public static <T extends Collection<Card>> Card getCardInput(Scanner from, T usedCards) {
 
