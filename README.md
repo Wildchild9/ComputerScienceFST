@@ -20,7 +20,7 @@ This program takes your poker hand and the cards on the table and helps you make
 ### Compiler Flags
 Please enable assertions in your compiler settings using the flag `-ea`.
 
-To enable assertions, go to **File > Preferences > Build, Execution, Deployment > Compiler** and type `-ea` in the field labeled "Shared build process VM options".
+To enable assertions, go to **IntelliJ IDEA > Preferences > Build, Execution, Deployment > Compiler** and type `-ea` in the field labeled "Shared build process VM options".
 
 To use *ComputerScienceFST* in a scratch file, type `-ea --enable-preview` instead in the aforementioned field.
 
@@ -44,7 +44,7 @@ Click **OK** in the *Download Library from Maven Repository*. Then click **Apply
 
 ## Usage
 
-To run the program, open Main.java. In the file, click on the green play arrow to the left of the line that reads `public static void main(String[] args) {`. The program will begin executing in the "Run" tab of the IntelliJ console. Follow the prompts and input the requested information to get the statistics regarding your poker hand.
+To run the program, open Main.java. In the file, click on the green play arrow to the left of the line that reads `public static void main(String[] args) {`, then select *Run 'Main.main()'*. The program will begin executing in the "Run" tab of the IntelliJ console. Follow the prompts and input the requested information to get the statistics regarding your poker hand.
 
 
 ## Documentation
