@@ -23,7 +23,64 @@ public class Testing {
      */
     public static void main(String[] args) {
 
+        assertEqual(Utils.joined(new int[] {1, 2, 3, 4, 5, 6}, "-"), "1-2-3-4-5-6");
 
+        assertEqual(Utils.graphemeClustersCount("2̲3̲4̲"), 3);
+
+        precondition(Utils.contains(4, new long[]{1, 2, 3, 4, 5, 6, 7}));
+
+        assertEqual(Utils.padLeft("Hello, World!", 15), "  Hello, World!");
+
+        var hole = new Hole(new Card(Card.Rank.ace, Card.Suit.spades),
+                            new Card(Card.Rank.king, Card.Suit.spades));
+
+        var table = Table.of(new Card[] {
+                new Card(Card.Rank.queen, Card.Suit.spades),
+                new Card(Card.Rank.jack, Card.Suit.spades),
+                new Card(Card.Rank.three, Card.Suit.diamonds),
+                new Card(Card.Rank.seven, Card.Suit.clubs),
+                new Card(Card.Rank.ten, Card.Suit.spades)
+        });
+
+        precondition(table.isPresent());
+
+        assertEqual(table.get().stage, Table.Stage.river);
+
+        var request1 = hole.apiResponse(table.get());
+
+        if (request1.isPresent()) {
+
+            assertEqual(hole.getOdds(table.get(), request1.get()), 100.0);
+
+        }
+
+        var emptyTable = Table.of(new Card[]{ });
+
+        precondition(emptyTable.isPresent());
+
+        assertEqual(emptyTable.get().stage, Table.Stage.preflop);
+
+        var request2 = hole.apiResponse(emptyTable.get());
+
+        if (request2.isPresent()) {
+
+            var chanceToHitAtLeast = hole.chanceToHitAtLeast(Hand.highCard, emptyTable.get(), request2.get());
+
+            precondition(chanceToHitAtLeast.isPresent());
+
+            assertEqual(chanceToHitAtLeast.get(), 100.0);
+
+            assertNotEqual(hole.chanceToHit(Hand.straight, emptyTable.get(), request2.get()), 100.0);
+
+        }
+
+        assertEqual(Card.deck().length, 52);
+
+        assertGreaterThan(Hand.flush, Hand.straight);
+
+        assertLessThan(Hand.twoPair, Hand.fullHouse);
+
+        System.out.println("All tests passed.");
 
     }
 
